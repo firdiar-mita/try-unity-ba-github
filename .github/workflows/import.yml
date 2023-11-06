@@ -1,0 +1,39 @@
+name: UnityBuild-Import
+
+# Controls when the workflow will run
+on: workflow_dispatch
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  Import:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          clean: false
+
+      # Runs a set of commands using the runners shell
+      - name: Remove Cache Build
+        run: (if [ -d "Builds" ]; then rm -rf ./Builds/*; else mkdir ./Builds; fi);
+      
+      - uses: game-ci/unity-builder@v3
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 2022.3.2f1
+          customImage: 'unityci/editor:2022.3.2f1-base-0'
+          targetPlatform: Android
+          allowDirtyBuild: true
+          buildMethod: BuildAutomation.BuildHelper.PerformBuild
+        
+      - name: Export
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build-Result
+          path: Builds/*

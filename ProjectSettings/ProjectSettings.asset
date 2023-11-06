@@ -727,7 +727,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: BUILD_TYPE_SERVERDEDICATED;BUILD_PLATFORM_LINUX;BUILD_ARCH_LINUXX64SERVER;BUILD_BACKEND_MONO
+    Standalone: 
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
