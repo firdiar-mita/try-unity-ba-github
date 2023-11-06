@@ -148,7 +148,9 @@ MonoBehaviour:
       buildOptions: 0
       customDefines: 
       sceneList:
-        releaseScenes: []
+        releaseScenes:
+        - fileGUID: 9fc0d4010bbf28b4594072e72b8655ab
+          sceneActive: 1
   _platformList:
     platforms:
     - {fileID: -2283567713524263851}
