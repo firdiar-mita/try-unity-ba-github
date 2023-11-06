@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace SuperUnityBuild.BuildTool
 {
@@ -310,14 +311,17 @@ namespace SuperUnityBuild.BuildTool
                 File.Copy(buildConstantsPath, currentBuildConstantsFile);
             }
 
+            Debug.Log("Pre Build");
             PerformPreBuild(out DateTime buildTime);
 
+            Debug.Log("Main Build : "+ buildConfigs.Length);
             for (int i = 0; i < buildConfigs.Length; i++)
             {
                 string configKey = buildConfigs[i];
 
                 // Parse build config and perform build.
                 string notification = string.Format("Building ({0}/{1}): ", i + 1, buildConfigs.Length);
+                Debug.Log(notification);
                 string constantsFileLocation = BuildSettings.basicSettings.constantsFileLocation;
                 BuildSettings.projectConfigurations.ParseKeychain(configKey, out BuildReleaseType releaseType, out BuildPlatform platform, out BuildArchitecture arch,
                     out BuildScriptingBackend scriptingBackend, out BuildDistribution dist);
@@ -330,6 +334,7 @@ namespace SuperUnityBuild.BuildTool
                     ++failCount;
             }
 
+            Debug.Log("Post Build");
             PerformPostBuild();
 
             // Restore editor status.
@@ -409,7 +414,7 @@ namespace SuperUnityBuild.BuildTool
             // Generate build path
             string buildPath = GenerateBuildPath(BuildSettings.basicSettings.buildPath, releaseType, platform, architecture, scriptingBackend, distribution, buildTime);
             string finalBuildName = releaseType.productName;
-            if(!releaseType.syncAppNameWithProduct)
+            if (!releaseType.syncAppNameWithProduct)
             {
                 finalBuildName = releaseType.appBuildName;
             }
@@ -427,12 +432,18 @@ namespace SuperUnityBuild.BuildTool
             // Build player
             FileUtil.DeleteFileOrDirectory(buildPath);
 
+            var sceneList = releaseType.sceneList.GetActiveSceneFileList();
+            if (sceneList.Length == 0) //avoid build error due to leaving sceneList empty
+            {
+                sceneList = EditorBuildSettings.scenes.Where(scene => scene.enabled).Select(s => s.path).ToArray();
+            }
+
             string error = "";
             BuildReport buildReport = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
                 locationPathName = Path.Combine(buildPath, binName),
                 options = options,
-                scenes = releaseType.sceneList.GetActiveSceneFileList(),
+                scenes = sceneList,
                 target = architecture.target
             });
 

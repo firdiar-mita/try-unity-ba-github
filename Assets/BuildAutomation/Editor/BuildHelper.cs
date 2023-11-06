@@ -20,6 +20,11 @@ namespace BuildAutomation
                 Debug.Log("CommandLineArg > " + arg.Key+":"+arg.Value);
             }
 
+            for (int i = 0; i < EditorBuildSettings.scenes.Length; i++)
+            {
+                Debug.Log($"Scene {i} : {EditorBuildSettings.scenes[i].path} ({(EditorBuildSettings.scenes[i].enabled)})");
+            }
+
             if (!SetActiveSettings(args["buildPreset"]))
             {
                 Debug.LogError("Set Active Settings Failed");
