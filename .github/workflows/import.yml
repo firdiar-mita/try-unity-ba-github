@@ -1,5 +1,14 @@
-name: UnityBuild-Import
-on: workflow_dispatch
+﻿name: UnityBuild-Import
+on:
+  workflow_dispatch:
+    inputs:
+      preset:
+        type: choice
+        required: true
+        description: Preset for Builds
+        options: 
+        - BA_BuildPreset_1
+        - BA_BuildPreset_2
 
 jobs:
   building:
@@ -31,12 +40,11 @@ jobs:
           unityVersion: 2022.3.3f1
           customImage: 'unityci/editor:ubuntu-2022.3.3f1-android-3.0.0'
           buildMethod: BuildAutomation.BuildHelper.PerformBuild
+          customParameters: -buildPreset ${{ github.event.inputs.preset }} -otherThing TestThing
 
       #check after builds
       - run: ls
-      - run: cd Builds/
-      - run: ls
-      - run: cd ..
+      - run: ls Builds/
         
       - name: Export
         uses: actions/upload-artifact@v3
