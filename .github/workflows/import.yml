@@ -38,7 +38,7 @@ jobs:
         id: set-custom-image
         run: |
           preset="${{ github.event.inputs.preset }}"
-          presets_json="./.github/workflows/presets.json"
+          presets_json="./.github/workflows/preset.json"
           customImage=$(jq -r --arg preset "$preset" '.[$preset].customImage' "$presets_json")
           unityVersion=$(jq -r --arg preset "$preset" '.[$preset].unityVersion' "$presets_json")
           echo "Using customImage: $customImage"
