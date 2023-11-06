@@ -21,12 +21,12 @@ jobs:
           clean: false
 
       - name: Restore Library
-        uses: actions/cache@v3
+        uses: actions/cache/restore@v3
         with:
-          path: Library/
-          key: Library-Cache
+          path: Library
+          key: Library-Cache-${{ github.event.inputs.preset }}
 
-      - name: Remove Cache
+      - name: Remove Build Cache
         run: |
           if [ -d "Builds" ]; then
             rm -rf ./Builds/*
@@ -47,7 +47,7 @@ jobs:
           echo "::set-output name=unityVersion::$unityVersion"
         shell: bash
 
-      - name: Building
+      - name: Building Preset
         continue-on-error: true
         uses: game-ci/unity-builder@v3
         env:
@@ -61,11 +61,19 @@ jobs:
           customParameters: -buildPreset ${{ github.event.inputs.preset }} -otherThing TestThing
 
       #check after builds
-      - run: ls
-      - run: ls Builds/
-      - run: ls Assets/
-        
-      - name: Export
+      - name: Checking After Builds
+        run: |
+          ls
+          ls Builds/
+          ls Assets/
+  
+      - name: Save Library
+        uses: actions/cache/save@v3
+        with:
+          path: Library
+          key: Library-Cache-${{ github.event.inputs.preset }} 
+          
+      - name: Export Artifact
         uses: actions/upload-artifact@v3
         with:
           name: Build-Result
