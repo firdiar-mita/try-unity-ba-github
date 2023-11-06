@@ -78,7 +78,7 @@ MonoBehaviour:
     showBuildInfo: 0
     hideDisabled: 0
     treeView: 0
-    selectedKeyChain: 
+    selectedKeyChain: Server Dedicated/Linux/Linux x64/Mono
   _preBuildActions:
     buildActions: []
   _postBuildActions:

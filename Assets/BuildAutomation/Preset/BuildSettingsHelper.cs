@@ -70,21 +70,8 @@ namespace EditorTool.BuildAutomation
                 }
 
                 var assetBuildSettings = AssetDatabase.LoadAssetAtPath<BuildSettings>(AssetDatabase.GUIDToAssetPath(guids[0]));
-
-                object obj = assetBuildSettings; // You need to implement this method
-
-                FieldInfo fieldInfo = typeof(BuildSettings).GetField("_instance", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-                if (fieldInfo != null)
-                {
-                    fieldInfo.SetValue(obj, assetBuildSettings);
-                    Debug.Log("Active Preset : "+settingsName);
-                    return true;
-                }
-                else
-                {
-                    Debug.LogError("Property not found!");
-                    return false;
-                }
+                assetBuildSettings.SetAsActivePreset();
+                return true;
             }
             catch (Exception e)
             {
