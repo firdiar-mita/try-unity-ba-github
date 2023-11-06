@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEditor;
 
 namespace SuperUnityBuild.BuildTool
@@ -12,6 +12,8 @@ namespace SuperUnityBuild.BuildTool
         private const BuildTargetGroup _targetGroup = BuildTargetGroup.Standalone;
 
         #endregion
+
+        public bool _isDedicatedServer;
 
         public BuildLinux()
         {
@@ -27,7 +29,8 @@ namespace SuperUnityBuild.BuildTool
             if (architectures == null || architectures.Length == 0)
             {
                 architectures = new BuildArchitecture[] {
-                    new BuildArchitecture(BuildTarget.StandaloneLinux64, "Linux x64", true, "{0}.x86_64")
+                    new BuildArchitecture(BuildTarget.StandaloneLinux64, "Linux x64", false, "{0}.x86_64", StandaloneBuildSubtarget.Player),
+                    new BuildArchitecture(BuildTarget.StandaloneLinux64, "Linux x64 Server", true, "{0}.x86_64", StandaloneBuildSubtarget.Server),
                 };
             }
 
