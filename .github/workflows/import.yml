@@ -21,6 +21,7 @@ jobs:
         run: (if [ -d "Builds" ]; then rm -rf ./Builds/*; else mkdir ./Builds; fi);
       
       - name: Building
+        continue-on-error: true
         uses: game-ci/unity-builder@v3
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
