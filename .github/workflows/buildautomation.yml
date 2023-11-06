@@ -1,4 +1,4 @@
-﻿name: UnityBuild-Import
+﻿name: Build Automation - ${{ github.event.inputs.preset }}
 on:
   workflow_dispatch:
     inputs:
