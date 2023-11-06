@@ -451,6 +451,11 @@ namespace SuperUnityBuild.BuildTool
             {
                 error = buildReport.summary.totalErrors + " occurred.";
             }
+            else if (buildReport.summary.result == BuildResult.Succeeded)
+            {
+                Debug.Log($"Build Success! `{architecture.name}`, Generating Report");
+                Debug.Log(FormatBuildSummary(buildReport.summary));
+            }
 
             if (!string.IsNullOrEmpty(error))
             {
@@ -473,6 +478,23 @@ namespace SuperUnityBuild.BuildTool
             PlayerSettings.SetScriptingBackend(platform.targetGroup, preBuildImplementation);
 
             return success;
+        }
+
+        public static string FormatBuildSummary(BuildSummary buildSummary)
+        {
+            return $"Build Summary:\n" +
+                   $"- Build Started At: {buildSummary.buildStartedAt}\n" +
+                   $"- Build GUID: {buildSummary.guid}\n" +
+                   $"- Platform: {buildSummary.platform}\n" +
+                   $"- Platform Group: {buildSummary.platformGroup}\n" +
+                   $"- Build Options: {buildSummary.options}\n" +
+                   $"- Output Path: {buildSummary.outputPath}\n" +
+                   $"- Total Size: {buildSummary.totalSize} bytes\n" +
+                   $"- Total Time: {buildSummary.totalTime}\n" +
+                   $"- Build Ended At: {buildSummary.buildEndedAt}\n" +
+                   $"- Total Errors: {buildSummary.totalErrors}\n" +
+                   $"- Total Warnings: {buildSummary.totalWarnings}\n" +
+                   $"- Build Result: {buildSummary.result}"; // Replace YourSubtargetEnum with the actual enum type you want to display.
         }
 
         private static void PerformPreBuild(out DateTime buildTime)
