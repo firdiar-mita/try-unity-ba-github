@@ -31,6 +31,12 @@ jobs:
           unityVersion: 2022.3.3f1
           customImage: 'unityci/editor:ubuntu-2022.3.3f1-android-3.0.0'
           buildMethod: BuildAutomation.BuildHelper.PerformBuild
+
+      #check after builds
+      - run: ls
+      - run: cd Builds/
+      - run: ls
+      - run: cd ..
         
       - name: Export
         uses: actions/upload-artifact@v3
