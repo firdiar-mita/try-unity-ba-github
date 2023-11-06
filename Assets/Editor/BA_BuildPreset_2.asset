@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5886119a5c7b34d8872ab527ca3e1b, type: 3}
+  m_Name: BA_BuildPreset_2
+  m_EditorClassIdentifier: 
+  _basicSettings:
+    baseBuildFolder: Builds
+    buildPath: $VERSION/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$SCRIPTING_BACKEND
+    openFolderPostBuild: 1
+    constantsFileLocation: Assets\BuildAutomation\SuperUnityBuild
+  _productParameters:
+    buildCounter: 0
+    buildVersion: 1.0.0.2
+    versionTemplate: 1.0.0.2
+    autoGenerate: 0
+    syncWithPlayerSettings: 1
+  _releaseTypeList:
+    releaseTypes:
+    - typeName: Server Dedicated
+      bundleIdentifier: com.DefaultCompany.try-unity-ba-github
+      companyName: DefaultCompany
+      productName: try-unity-ba-github
+      syncAppNameWithProduct: 1
+      appBuildName: try-unity-ba-github
+      buildOptions: 16384
+      customDefines: 
+      sceneList:
+        releaseScenes: []
+  _platformList:
+    platforms:
+    - {fileID: 542214645208081023}
+  _projectConfigurations:
+    configSet:
+      _Buckets: 03000000ffffffff00000000ffffffffffffffffffffffff01000000
+      _HashCodes: a88df0638682dd6b9b1d3d1bfc3a7300000000000000000000000000
+      _Next: ffffffffffffffffffffffff02000000000000000000000000000000
+      _Count: 4
+      _Version: 4
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - Server Dedicated/Linux/Linux x64/Mono
+      - Server Dedicated/Linux/Linux x64
+      - Server Dedicated/Linux
+      - Server Dedicated
+      - 
+      - 
+      - 
+      _Values:
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Server Dedicated/Linux/Linux x64/Mono
+      - enabled: 1
+        childKeys:
+        - Server Dedicated/Linux/Linux x64
+      - enabled: 1
+        childKeys:
+        - Server Dedicated/Linux
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+    showViewOptions: 0
+    showConfigs: 0
+    showBuildInfo: 0
+    hideDisabled: 0
+    treeView: 0
+    selectedKeyChain: 
+  _preBuildActions:
+    buildActions: []
+  _postBuildActions:
+    buildActions: []
+--- !u!114 &542214645208081023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc439ce9d1bfb34a821f7d6fabc4fef, type: 3}
+  m_Name: Linux
+  m_EditorClassIdentifier: 
+  enabled: 1
+  distributionList:
+    distributions: []
+  architectures:
+  - target: 24
+    name: Linux x64
+    enabled: 1
+    binaryNameFormat: '{0}.x86_64'
+  variants: []
+  scriptingBackends:
+  - scriptingImplementation: 0
+    name: Mono
+    enabled: 1
+  - scriptingImplementation: 1
+    name: IL2CPP
+    enabled: 0
+  platformName: Linux
+  targetGroup: 1
