@@ -23,12 +23,30 @@ jobs:
       - name: Restore Library
         uses: actions/cache@v3
         with:
-          path: Library
+          path: Library/
           key: Library-Cache
 
       - name: Remove Cache
-        run: (if [ -d "Builds" ]; then rm -rf ./Builds/*; else mkdir ./Builds; fi);
+        run: |
+          if [ -d "Builds" ]; then
+            rm -rf ./Builds/*
+          else
+            mkdir ./Builds
+          fi
       
+      - name: Set CustomImage and Unity Version
+        id: set-custom-image
+        run: |
+          preset="${{ github.event.inputs.preset }}"
+          presets_json=".github/workflows/presets.json"
+          customImage=$(jq -r --arg preset "$preset" '.[$preset].customImage' "$presets_json")
+          unityVersion=$(jq -r --arg preset "$preset" '.[$preset].unityVersion' "$presets_json")
+          echo "Using customImage: $customImage"
+          echo "Using unityVersion: $unityVersion"
+          echo "::set-output name=customImage::$customImage"
+          echo "::set-output name=unityVersion::$unityVersion"
+        shell: bash
+
       - name: Building
         continue-on-error: true
         uses: game-ci/unity-builder@v3
@@ -37,14 +55,15 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          unityVersion: 2022.3.3f1
-          customImage: 'unityci/editor:ubuntu-2022.3.3f1-android-3.0.0'
+          unityVersion: ${{ steps.set-custom-image.outputs.unityVersion }}
+          customImage: ${{ steps.set-custom-image.outputs.customImage }}
           buildMethod: BuildAutomation.BuildHelper.PerformBuild
           customParameters: -buildPreset ${{ github.event.inputs.preset }} -otherThing TestThing
 
       #check after builds
       - run: ls
       - run: ls Builds/
+      - run: ls Assets/
         
       - name: Export
         uses: actions/upload-artifact@v3

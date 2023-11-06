@@ -1,0 +1,10 @@
+{
+  "BA_BuildPreset_1": {
+    "customImage": "unityci/editor:ubuntu-2022.3.3f1-android-3.0.0",
+    "unityVersion": "2022.3.3f1"
+  },
+  "BA_BuildPreset_2": {
+    "customImage": "unityci/editor:ubuntu-2022.3.3f1-linux-il2cpp-3.0.0",
+    "unityVersion": "2022.3.12f1"
+  }
+}

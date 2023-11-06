@@ -20,7 +20,7 @@ namespace BuildAutomation
                 Debug.Log("CommandLineArg > " + arg.Key+":"+arg.Value);
             }
 
-            if (!SetActiveSettings("BA_BuildPreset_2"))
+            if (!SetActiveSettings(args["buildPreset"]))
             {
                 Debug.LogError("Set Active Settings Failed");
             }
