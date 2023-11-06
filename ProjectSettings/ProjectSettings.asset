@@ -729,7 +729,7 @@ PlayerSettings:
   webGLPowerPreference: 2
   scriptingDefineSymbols:
     Android: 
-    Standalone: BUILD_TYPE_SERVERDEDICATED;BUILD_PLATFORM_LINUX;BUILD_ARCH_LINUXX64SERVER;BUILD_BACKEND_MONO
+    Standalone: 
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
